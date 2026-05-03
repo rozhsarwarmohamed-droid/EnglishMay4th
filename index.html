@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>9.2 The Uses of Robots – Cambridge Global English Grade 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ─── CSS VARIABLES ─────────────────────────────────────── */
+:root {
+  --mint:      #6ECFC4;
+  --mint-dark: #3AADA0;
+  --mint-pale: #D6F5F2;
+  --orange:    #F4843D;
+  --orange-dk: #D9622A;
+  --orange-lt: #FDE8D8;
+  --yellow:    #F9C74F;
+  --yellow-lt: #FEF3CF;
+  --pink:      #E85D8A;
+  --pink-lt:   #FAD4E4;
+  --blue:      #3D8FE8;
+  --blue-lt:   #D4E8FA;
+  --cream:     #FDF8F0;
+  --charcoal:  #2C2C2C;
+  --metal:     #8B9EA8;
+  --metal-lt:  #D0DDE3;
+  --rivet:     #5C7480;
+  --correct:   #3CB371;
+  --wrong:     #E84343;
+  --sidebar-w: 200px;
+  --radius:    14px;
+  --shadow:    0 4px 18px rgba(0,0,0,.13);
+}
+
+/* ─── RESET ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { height: 100%; background: var(--cream); }
+body {
+  display: flex;
+  height: 100%;
+  font-family: 'Nunito', sans-serif;
+  color: var(--charcoal);
+  overflow: hidden;
+  background: var(--cream);
+}
+
+/* ─── TIN-TOY RIVET TEXTURE ─────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    radial-gradient(circle at 20px 20px, rgba(255,255,255,.07) 2px, transparent 2px),
+    radial-gradient(circle at 60px 60px, rgba(0,0,0,.03) 2px, transparent 2px);
+  background-size: 80px 80px;
+  pointer-events: none; z-index: 0;
+}
+
+/* ─── SIDEBAR ────────────────────────────────────────────── */
+#sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: linear-gradient(175deg, #3AADA0 0%, #2C8C82 100%);
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 10;
+  box-shadow: 4px 0 20px rgba(0,0,0,.2);
+}
+
+/* rivet decoration on sidebar */
+#sidebar::before {
+  content:'';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 12px 12px, rgba(255,255,255,.2) 3px, transparent 3px),
+    radial-gradient(circle at calc(100% - 12px) 12px, rgba(255,255,255,.2) 3px, transparent 3px);
+  background-size: 100% 80px;
+  pointer-events: none;
+}
+
+.sidebar-header {
+  padding: 18px 12px 14px;
+  text-align: center;
+  border-bottom: 2px solid rgba(255,255,255,.2);
+}
+
+.sidebar-header .unit-badge {
+  background: var(--orange);
+  color: #fff;
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.sidebar-header h1 {
+  font-family: 'Fredoka One', sans-serif;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.sidebar-header .robot-mini {
+  font-size: 28px;
+  display: block;
+  margin: 6px 0 4px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.3));
+}
+
+/* nav buttons */
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 12px;
+  margin: 3px 8px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,.85);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 12.5px;
+  cursor: pointer;
+  text-align: left;
+  transition: background .2s, color .2s, transform .1s;
+  position: relative;
+}
+.nav-btn:hover { background: rgba(255,255,255,.15); color:#fff; }
+.nav-btn.active {
+  background: var(--orange);
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(0,0,0,.2);
+}
+.nav-btn .nav-icon { font-size: 16px; flex-shrink: 0; }
+.nav-btn .nav-label { flex: 1; line-height: 1.2; }
+.nav-btn .dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.3);
+  flex-shrink: 0;
+  transition: background .3s;
+}
+.nav-btn .dot.done { background: var(--yellow); box-shadow: 0 0 6px var(--yellow); }
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 12px;
+  text-align: center;
+  font-size: 10px;
+  color: rgba(255,255,255,.5);
+  border-top: 1px solid rgba(255,255,255,.15);
+}
+
+/* ─── MAIN CONTENT ───────────────────────────────────────── */
+#main {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: scroll;
+  overscroll-behavior-y: contain;
+  scroll-behavior: smooth;
+  padding: 24px 28px 120px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── SECTIONS ───────────────────────────────────────────── */
+.section { display: none; animation: fadeIn .35s ease; }
+.section.active { display: block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+/* ─── PAGE HEADER ────────────────────────────────────────── */
+.page-header {
+  background: linear-gradient(135deg, var(--mint-dark) 0%, var(--mint) 60%, #A8E6E0 100%);
+  border-radius: 20px;
+  padding: 22px 28px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.page-header::after {
+  content: '🤖';
+  position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+  font-size: 64px;
+  opacity: .25;
+}
+.page-header .page-tag {
+  font-size: 11px; font-weight: 800; letter-spacing: 2px;
+  color: rgba(255,255,255,.8); text-transform: uppercase; margin-bottom: 4px;
+}
+.page-header h2 {
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 28px; color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+.page-header .objective {
+  margin-top: 8px;
+  background: rgba(255,255,255,.2);
+  border-radius: 8px;
+  padding: 7px 12px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+/* ─── CARDS ──────────────────────────────────────────────── */
+.card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px 24px;
+  margin-bottom: 20px;
+  border: 2px solid var(--metal-lt);
+  position: relative;
+}
+.card-title {
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 18px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-title .num {
+  background: var(--orange);
+  color: #fff;
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 15px;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.talk-label {
+  background: var(--pink);
+  color: #fff;
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 13px;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-right: 4px;
+}
+
+/* ─── READING TEXT BOXES ────────────────────────────────── */
+.reading-box {
+  background: var(--yellow-lt);
+  border: 2px solid var(--yellow);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.reading-box p {
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+.reading-box .para-num {
+  background: var(--orange);
+  color: #fff;
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 13px;
+  padding: 1px 9px;
+  border-radius: 20px;
+  margin-right: 6px;
+}
+.hl-word { color: var(--blue); font-weight: 800; text-decoration: underline; }
+.hl-orange { color: var(--orange-dk); font-weight: 800; }
+
+/* ─── TITLE CHIPS (for matching) ───────────────────────── */
+.title-bank {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 18px;
+}
+.title-chip {
+  padding: 9px 16px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform .15s, box-shadow .15s, opacity .2s;
+  user-select: none;
+  touch-action: manipulation;
+}
+.title-chip:hover:not(.used) { transform: scale(1.04); box-shadow: 0 4px 12px rgba(0,0,0,.2); }
+.title-chip.chip-orange { background: var(--orange); color: #fff; }
+.title-chip.chip-pink   { background: var(--pink);   color: #fff; }
+.title-chip.chip-mint   { background: var(--mint-dark); color: #fff; }
+.title-chip.chip-blue   { background: var(--blue);   color: #fff; }
+.title-chip.used { opacity: .45; pointer-events: none; }
+
+.para-drop {
+  min-height: 44px;
+  border: 2.5px dashed var(--metal);
+  border-radius: 10px;
+  padding: 8px 14px;
+  display: flex; align-items: center;
+  background: var(--metal-lt);
+  margin-top: 10px;
+  transition: border-color .2s, background .2s;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--metal);
+}
+.para-drop.has-chip {
+  border-style: solid;
+  background: #fff;
+  color: var(--charcoal);
+}
+.para-drop.correct-drop { border-color: var(--correct); background: #EDFAF3; color: var(--correct); }
+.para-drop.wrong-drop   { border-color: var(--wrong);   background: #FFF0F0; }
+.para-drop .remove-btn {
+  margin-left: auto;
+  background: var(--metal);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 20px; height: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ─── VOCAB MATCHING ────────────────────────────────────── */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.vocab-def {
+  background: var(--blue-lt);
+  border: 2px solid var(--blue);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+  user-select: none;
+}
+.vocab-def:hover:not(.used) { transform: scale(1.02); box-shadow: 0 3px 12px rgba(61,143,232,.3); }
+.vocab-def.selected { border-color: var(--orange); background: var(--orange-lt); transform: scale(1.03); }
+.vocab-def.matched  { border-color: var(--correct); background: #EDFAF3; pointer-events:none; }
+
+.vocab-word-grid {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-top: 14px;
+}
+.vocab-word {
+  background: var(--orange);
+  color: #fff;
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 15px;
+  padding: 8px 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+  user-select: none;
+  touch-action: manipulation;
+}
+.vocab-word:hover:not(.matched) { transform: scale(1.06); box-shadow: 0 4px 12px rgba(0,0,0,.2); }
+.vocab-word.selected { background: var(--pink); transform: scale(1.06); }
+.vocab-word.matched  { background: var(--correct); pointer-events:none; opacity:.7; }
+
+/* ─── SENTENCE FILL ─────────────────────────────────────── */
+.sentence-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 12px 16px;
+  background: #fff;
+  border: 2px solid var(--metal-lt);
+  border-radius: 10px;
+}
+.sentence-row .s-num {
+  font-family: 'Fredoka One', sans-serif;
+  color: var(--orange);
+  font-size: 18px;
+  min-width: 20px;
+}
+.sentence-row .s-text { font-size: 15px; font-weight: 600; }
+.sentence-row .s-blank {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 120px; height: 36px;
+  border: 2.5px dashed var(--blue);
+  border-radius: 8px;
+  background: var(--blue-lt);
+  font-weight: 700; font-size: 14px; color: var(--blue);
+  cursor: pointer;
+  padding: 0 10px;
+  transition: background .2s, border-color .2s;
+}
+.sentence-row .s-blank.filled {
+  border-style: solid;
+  background: #fff;
+  color: var(--charcoal);
+  border-color: var(--mint-dark);
+}
+.sentence-row .s-blank.correct { border-color: var(--correct); background: #EDFAF3; color: var(--correct); }
+.sentence-row .s-blank.wrong   { border-color: var(--wrong);   background: #FFF0F0; }
+
+.object-bank {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 18px;
+}
+.obj-chip {
+  background: var(--mint);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform .15s, opacity .2s;
+  touch-action: manipulation;
+}
+.obj-chip:hover:not(.used) { transform: scale(1.05); }
+.obj-chip.used    { opacity: .4; pointer-events: none; }
+.obj-chip.selected { background: var(--pink); }
+
+/* ─── DISCUSSION BUBBLES ────────────────────────────────── */
+.bubble-row {
+  display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+  margin-top: 16px;
+}
+.speech-bubble {
+  background: var(--mint-pale);
+  border: 2.5px solid var(--mint-dark);
+  border-radius: 18px;
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mint-dark);
+  text-align: center;
+  position: relative;
+  max-width: 220px;
+}
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -14px; left: 50%; transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-top-color: var(--mint-dark);
+}
+.speech-bubble.pink-bubble {
+  background: var(--pink-lt);
+  border-color: var(--pink);
+  color: var(--pink);
+}
+.speech-bubble.pink-bubble::after { border-top-color: var(--pink); }
+
+.starter-list {
+  list-style: none;
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-top: 12px;
+}
+.starter-list li {
+  background: var(--mint-pale);
+  border: 2px solid var(--mint-dark);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--mint-dark);
+}
+
+/* ─── GRAMMAR EXPLAINER ─────────────────────────────────── */
+.grammar-box {
+  background: linear-gradient(135deg, var(--yellow-lt), #FFF8E7);
+  border: 2.5px solid var(--yellow);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin-bottom: 18px;
+}
+.grammar-box h3 {
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 16px;
+  color: var(--orange-dk);
+  margin-bottom: 10px;
+}
+.grammar-box p, .grammar-box li { font-size: 14px; line-height: 1.7; }
+.grammar-box .highlight-obj {
+  background: var(--orange);
+  color: #fff;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-weight: 800;
+}
+.grammar-box .highlight-verb {
+  background: var(--mint-dark);
+  color: #fff;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-weight: 800;
+}
+
+/* ─── FUTURE PREDICTIONS ────────────────────────────────── */
+.prediction-area {
+  display: flex; flex-direction: column; gap: 12px;
+  margin-top: 14px;
+}
+.prediction-input {
+  display: flex; gap: 10px; align-items: center;
+}
+.prediction-input select {
+  flex: 0 0 auto;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 2px solid var(--mint-dark);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--mint-dark);
+  background: var(--mint-pale);
+  cursor: pointer;
+}
+.prediction-input input {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 2px solid var(--metal-lt);
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  outline: none;
+  transition: border-color .2s;
+}
+.prediction-input input:focus { border-color: var(--mint-dark); }
+.prediction-input .add-btn {
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background .2s, transform .1s;
+  touch-action: manipulation;
+}
+.prediction-input .add-btn:hover { background: var(--orange-dk); transform: scale(1.04); }
+
+.prediction-cards { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.pred-card {
+  background: #fff;
+  border: 2px solid var(--mint);
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex; align-items: center; gap: 10px;
+  animation: fadeIn .3s ease;
+}
+.pred-card .pred-icon { font-size: 18px; }
+.pred-card .pred-text { flex: 1; font-size: 14px; font-weight: 600; }
+.pred-card .pred-del {
+  background: none; border: none;
+  color: var(--metal);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: background .15s, color .15s;
+}
+.pred-card .pred-del:hover { background: #FFF0F0; color: var(--wrong); }
+
+/* ─── BUTTONS ────────────────────────────────────────────── */
+.btn {
+  padding: 11px 22px;
+  border-radius: 30px;
+  border: none;
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+  touch-action: manipulation;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn:hover { transform: scale(1.04); box-shadow: 0 4px 12px rgba(0,0,0,.18); }
+.btn-check { background: var(--mint-dark); color: #fff; }
+.btn-reset { background: var(--metal); color: #fff; font-size: 14px; padding: 9px 18px; }
+.btn-next  { background: var(--orange); color: #fff; }
+.btn-row   { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+/* ─── TOAST ──────────────────────────────────────────────── */
+#toast {
+  position: fixed;
+  top: 20px; left: 50%; transform: translateX(-50%) translateY(-80px);
+  background: var(--charcoal);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-weight: 700; font-size: 15px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.3);
+  z-index: 9999;
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .35s;
+  opacity: 0;
+  pointer-events: none;
+  max-width: 340px;
+  text-align: center;
+}
+#toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+#toast.success { background: var(--correct); }
+#toast.error   { background: var(--wrong); }
+
+/* ─── ANIMATIONS ─────────────────────────────────────────── */
+@keyframes shake {
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-6px)}
+  40%{transform:translateX(6px)}
+  60%{transform:translateX(-5px)}
+  80%{transform:translateX(5px)}
+}
+.shake { animation: shake .4s ease; }
+@keyframes pop {
+  0%{transform:scale(1)} 50%{transform:scale(1.12)} 100%{transform:scale(1)}
+}
+.pop { animation: pop .3s ease; }
+
+/* ─── ROBOT CHARACTER ────────────────────────────────────── */
+.robot-char {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  user-select: none;
+}
+.robot-char svg { filter: drop-shadow(2px 4px 8px rgba(0,0,0,.2)); }
+
+/* ─── PROGRESS BAR ───────────────────────────────────────── */
+.progress-strip {
+  background: var(--metal-lt);
+  border-radius: 30px;
+  height: 10px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--mint-dark), var(--orange));
+  border-radius: 30px;
+  transition: width .5s ease;
+}
+
+/* ─── CAN/CAN'T TABLE ────────────────────────────────────── */
+.ability-table {
+  width: 100%; border-collapse: separate; border-spacing: 0 8px;
+  margin-top: 12px;
+}
+.ability-table th {
+  padding: 10px 16px;
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 15px;
+  text-align: center;
+}
+.ability-table th:first-child { color: var(--mint-dark); }
+.ability-table th:last-child  { color: var(--pink); }
+.ability-table td {
+  padding: 8px 12px;
+  background: #fff;
+  font-size: 13.5px; font-weight: 600;
+  text-align: center;
+}
+.ability-table td:first-child { border-radius: 10px 0 0 10px; border: 2px solid var(--mint-pale); }
+.ability-table td:last-child  { border-radius: 0 10px 10px 0; border: 2px solid var(--pink-lt); }
+
+.check-btn {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--metal-lt);
+  background: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto;
+  transition: background .2s, border-color .2s, transform .1s;
+}
+.check-btn.ticked { background: var(--correct); border-color: var(--correct); color: #fff; }
+.check-btn:hover  { transform: scale(1.1); }
+
+/* ─── SECTION COMPLETE BANNER ───────────────────────────── */
+.complete-banner {
+  background: linear-gradient(135deg, var(--mint-dark), var(--mint));
+  color: #fff;
+  border-radius: 14px;
+  padding: 16px 22px;
+  text-align: center;
+  margin-top: 20px;
+  display: none;
+  animation: fadeIn .4s ease;
+}
+.complete-banner.show { display: block; }
+.complete-banner h3 { font-family: 'Fredoka One', sans-serif; font-size: 20px; }
+.complete-banner p { font-size: 14px; margin-top: 4px; }
+
+/* ─── INFO BOX ───────────────────────────────────────────── */
+.info-box {
+  background: var(--pink-lt);
+  border: 2px solid var(--pink);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 14px;
+}
+.info-box strong { color: var(--pink); }
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  :root { --sidebar-w: 68px; }
+  .nav-btn .nav-label { display: none; }
+  .nav-btn .dot { display: none; }
+  #main { padding: 16px 14px 100px; }
+  .vocab-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ SIDEBAR ═══════════════ -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="unit-badge">UNIT 9.2</div>
+    <span class="robot-mini">🤖</span>
+    <h1>The Uses of Robots</h1>
+  </div>
+
+  <button class="nav-btn active" onclick="navigate(0)">
+    <span class="nav-icon">💬</span>
+    <span class="nav-label">Warm Up</span>
+    <span class="dot" id="dot0"></span>
+  </button>
+  <button class="nav-btn" onclick="navigate(1)">
+    <span class="nav-icon">📖</span>
+    <span class="nav-label">Reading</span>
+    <span class="dot" id="dot1"></span>
+  </button>
+  <button class="nav-btn" onclick="navigate(2)">
+    <span class="nav-icon">🔗</span>
+    <span class="nav-label">Match Titles</span>
+    <span class="dot" id="dot2"></span>
+  </button>
+  <button class="nav-btn" onclick="navigate(3)">
+    <span class="nav-icon">🔵</span>
+    <span class="nav-label">Vocabulary</span>
+    <span class="dot" id="dot3"></span>
+  </button>
+  <button class="nav-btn" onclick="navigate(4)">
+    <span class="nav-icon">✏️</span>
+    <span class="nav-label">Grammar</span>
+    <span class="dot" id="dot4"></span>
+  </button>
+  <button class="nav-btn" onclick="navigate(5)">
+    <span class="nav-icon">🤔</span>
+    <span class="nav-label">Can/Can't</span>
+    <span class="dot" id="dot5"></span>
+  </button>
+  <button class="nav-btn" onclick="navigate(6)">
+    <span class="nav-icon">🔮</span>
+    <span class="nav-label">Future Talk</span>
+    <span class="dot" id="dot6"></span>
+  </button>
+
+  <div class="sidebar-footer">Grade 3 ESL · 40 min</div>
+</nav>
+
+<!-- ═══════════════ MAIN ═══════════════════ -->
+<main id="main">
+  <div id="toast"></div>
+
+  <!-- ─── SECTION 0: WARM UP ─── -->
+  <section class="section active" id="sec0">
+    <div class="page-header">
+      <div class="page-tag">Cambridge Global English · Pages 146–147</div>
+      <h2>9.2 The Uses of Robots</h2>
+      <span class="objective">🎯 We will describe and compare what robots can do</span>
+    </div>
+
+    <div class="progress-strip"><div class="progress-fill" style="width:14%"></div></div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="num">1</span>
+        <span><span class="talk-label">Talk</span> about robots</span>
+      </div>
+      <p style="font-size:15px; line-height:1.7; margin-bottom:16px;">
+        We often use robots for things that are <strong>difficult</strong> for us to do, or things that we <strong>don't want</strong> to do.
+      </p>
+
+      <!-- Tin-toy SVG robot -->
+      <div style="text-align:center; margin: 10px 0 20px;">
+        <svg width="160" height="200" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+          <!-- antenna -->
+          <line x1="80" y1="18" x2="80" y2="38" stroke="#5C7480" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="80" cy="14" r="8" fill="#F4843D" stroke="#D9622A" stroke-width="2"/>
+          <!-- head -->
+          <rect x="38" y="38" width="84" height="60" rx="10" fill="#6ECFC4" stroke="#3AADA0" stroke-width="3"/>
+          <!-- rivets head -->
+          <circle cx="46" cy="46" r="4" fill="#3AADA0"/><circle cx="114" cy="46" r="4" fill="#3AADA0"/>
+          <circle cx="46" cy="90" r="4" fill="#3AADA0"/><circle cx="114" cy="90" r="4" fill="#3AADA0"/>
+          <!-- eyes -->
+          <rect x="50" y="52" width="22" height="22" rx="4" fill="#2C2C2C"/>
+          <rect x="88" y="52" width="22" height="22" rx="4" fill="#2C2C2C"/>
+          <circle cx="61" cy="63" r="6" fill="#F9C74F"/>
+          <circle cx="99" cy="63" r="6" fill="#F9C74F"/>
+          <circle cx="63" cy="61" r="2" fill="#2C2C2C"/>
+          <circle cx="101" cy="61" r="2" fill="#2C2C2C"/>
+          <!-- mouth -->
+          <rect x="58" y="82" width="44" height="8" rx="4" fill="#2C2C2C"/>
+          <rect x="62" y="83" width="6" height="6" rx="1" fill="#F4843D"/>
+          <rect x="71" y="83" width="6" height="6" rx="1" fill="#F9C74F"/>
+          <rect x="80" y="83" width="6" height="6" rx="1" fill="#F4843D"/>
+          <rect x="89" y="83" width="6" height="6" rx="1" fill="#F9C74F"/>
+          <!-- body -->
+          <rect x="28" y="104" width="104" height="68" rx="10" fill="#6ECFC4" stroke="#3AADA0" stroke-width="3"/>
+          <!-- chest panel -->
+          <rect x="44" y="114" width="72" height="46" rx="6" fill="#3AADA0"/>
+          <!-- gear icons on chest -->
+          <circle cx="62" cy="137" r="10" fill="none" stroke="#F9C74F" stroke-width="3"/>
+          <circle cx="62" cy="137" r="4" fill="#F9C74F"/>
+          <circle cx="98" cy="137" r="10" fill="none" stroke="#F4843D" stroke-width="3"/>
+          <circle cx="98" cy="137" r="4" fill="#F4843D"/>
+          <!-- dial -->
+          <rect x="76" y="120" width="8" height="8" rx="2" fill="#F9C74F"/>
+          <!-- rivets body -->
+          <circle cx="36" cy="112" r="4" fill="#3AADA0"/><circle cx="124" cy="112" r="4" fill="#3AADA0"/>
+          <circle cx="36" cy="164" r="4" fill="#3AADA0"/><circle cx="124" cy="164" r="4" fill="#3AADA0"/>
+          <!-- arms -->
+          <rect x="4" y="106" width="22" height="52" rx="8" fill="#F4843D" stroke="#D9622A" stroke-width="2"/>
+          <rect x="134" y="106" width="22" height="52" rx="8" fill="#F4843D" stroke="#D9622A" stroke-width="2"/>
+          <!-- hands -->
+          <circle cx="15" cy="162" r="10" fill="#D9622A"/><circle cx="145" cy="162" r="10" fill="#D9622A"/>
+          <!-- legs -->
+          <rect x="48" y="174" width="26" height="20" rx="6" fill="#3AADA0" stroke="#2C8C82" stroke-width="2"/>
+          <rect x="86" y="174" width="26" height="20" rx="6" fill="#3AADA0" stroke="#2C8C82" stroke-width="2"/>
+          <!-- feet -->
+          <rect x="42" y="190" width="36" height="10" rx="5" fill="#F4843D"/>
+          <rect x="80" y="190" width="36" height="10" rx="5" fill="#F4843D"/>
+          <!-- spring hair accent -->
+          <path d="M72 38 Q68 28 72 20 Q76 12 72 4" stroke="#5C7480" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M88 38 Q84 28 88 20 Q92 12 88 4" stroke="#5C7480" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="info-box">
+        <strong>🤔 Think &amp; Talk:</strong> Look at the robot above. What do you think this robot can do?
+        Discuss with a partner!
+      </div>
+
+      <p style="font-size:14px; color:#666; margin-bottom:8px;">Which of these things can robots do? <strong>Tap to agree or disagree!</strong></p>
+      <div id="warmup-options" style="display:flex;flex-direction:column;gap:8px;"></div>
+      <div class="btn-row">
+        <button class="btn btn-next" onclick="markDone(0); navigate(1)">Next: Read the text ➜</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 1: READING ─── -->
+  <section class="section" id="sec1">
+    <div class="page-header" style="background:linear-gradient(135deg,#3D8FE8,#6ECFC4);">
+      <div class="page-tag">Activity 2 · Reading</div>
+      <h2>📖 What Can These Robots Do?</h2>
+      <span class="objective">🎯 Listen and read about different robots</span>
+    </div>
+    <div class="progress-strip"><div class="progress-fill" style="width:28%"></div></div>
+
+    <div class="card">
+      <p style="font-size:14px;margin-bottom:14px;">Read the four paragraphs. Notice the <span class="hl-word">blue words</span> and the <span class="hl-orange">orange words</span> — they are key vocabulary!</p>
+
+      <div class="reading-box">
+        <p><span class="para-num">1</span> Some robots go to places where it is hard or impossible for people to go. They take photos, measure things or collect <span class="hl-word">samples</span> for scientists to study. Robots with wheels have <span class="hl-word">explored</span> the moon and the planet Mars. Some robots go deep into the ocean to <span class="hl-word">explore</span> plants and animals that live there. They also <span class="hl-orange">search</span> for old ships on the ocean floor.</p>
+      </div>
+
+      <div class="reading-box">
+        <p><span class="para-num">2</span> Other robots can go into dangerous places where there have been fires, earthquakes or explosions. Robots can search for people to <span class="hl-word">rescue</span>. They can find people and send us information. They can move walls or things that fall.</p>
+      </div>
+
+      <div class="reading-box">
+        <p><span class="para-num">3</span> Some robots do jobs that are repetitive. They make cars and other things in <span class="hl-word">factories</span>. They are often faster and stronger than people especially when they make big or heavy things.</p>
+      </div>
+
+      <div class="reading-box" style="background:var(--orange-lt); border-color:var(--orange);">
+        <p><span class="para-num" style="background:var(--blue);">4</span> In hospitals, doctors use robots to do <span class="hl-word">operations</span> inside people's bodies. A doctor sits at the computer and shows the robot what to do. The robot arms hold tiny <span class="hl-orange">tools</span> and lights. The tiny <span class="hl-word" style="color:var(--orange-dk)">tools</span> can reach places that a doctor's hands can't reach, like inside a patient's brain. Together, the robot and the doctor make an excellent team.</p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-reset" onclick="navigate(0)">← Back</button>
+        <button class="btn btn-next" onclick="markDone(1); navigate(2)">Next: Match the titles ➜</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 2: MATCH TITLES ─── -->
+  <section class="section" id="sec2">
+    <div class="page-header" style="background:linear-gradient(135deg,#E85D8A,#F4843D);">
+      <div class="page-tag">Activity 2 · Matching</div>
+      <h2>🔗 Match the Titles!</h2>
+      <span class="objective">🎯 Tap a title, then tap the correct paragraph</span>
+    </div>
+    <div class="progress-strip"><div class="progress-fill" style="width:42%"></div></div>
+
+    <div class="card">
+      <div class="card-title"><span class="num">2</span>Match each title to a paragraph</div>
+      <p style="font-size:14px;margin-bottom:14px;color:#555;">
+        <strong>Step 1:</strong> Tap a coloured title below.<br>
+        <strong>Step 2:</strong> Tap the paragraph slot you want to place it in.
+      </p>
+
+      <!-- Title bank -->
+      <div class="title-bank" id="title-bank">
+        <div class="title-chip chip-orange" data-title="Robots can go where it's dangerous for us" data-correct="1" onclick="selectChip(this)">Robots can go where it's dangerous for us</div>
+        <div class="title-chip chip-pink"   data-title="Robots can help with delicate operations" data-correct="3" onclick="selectChip(this)">Robots can help with delicate operations</div>
+        <div class="title-chip chip-mint"   data-title="Robots can go where we can't survive" data-correct="0" onclick="selectChip(this)">Robots can go where we can't survive</div>
+        <div class="title-chip chip-blue"   data-title="Robots can do jobs that people find boring" data-correct="2" onclick="selectChip(this)">Robots can do jobs that people find boring</div>
+      </div>
+
+      <!-- Para slots -->
+      <div style="display:flex;flex-direction:column;gap:14px;" id="para-slots">
+        <div>
+          <p style="font-size:13px;font-weight:700;color:#888;">PARAGRAPH 1 — Places that are hard to reach</p>
+          <div class="para-drop" id="drop0" data-index="0" onclick="placeTitleHere(0)">Tap to place title here…
+            <button class="remove-btn" style="display:none" onclick="removeTitle(event,0)">✕</button>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:13px;font-weight:700;color:#888;">PARAGRAPH 2 — Dangerous places</p>
+          <div class="para-drop" id="drop1" data-index="1" onclick="placeTitleHere(1)">Tap to place title here…
+            <button class="remove-btn" style="display:none" onclick="removeTitle(event,1)">✕</button>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:13px;font-weight:700;color:#888;">PARAGRAPH 3 — Repetitive factory jobs</p>
+          <div class="para-drop" id="drop2" data-index="2" onclick="placeTitleHere(2)">Tap to place title here…
+            <button class="remove-btn" style="display:none" onclick="removeTitle(event,2)">✕</button>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:13px;font-weight:700;color:#888;">PARAGRAPH 4 — Hospital operations</p>
+          <div class="para-drop" id="drop3" data-index="3" onclick="placeTitleHere(3)">Tap to place title here…
+            <button class="remove-btn" style="display:none" onclick="removeTitle(event,3)">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-check" onclick="checkMatching()">✅ Check Answers</button>
+        <button class="btn btn-reset" onclick="resetMatching()">↩ Reset</button>
+      </div>
+
+      <div class="complete-banner" id="match-complete">
+        <h3>🎉 All titles matched correctly!</h3>
+        <p>Great job! You understand what each type of robot does.</p>
+        <div class="btn-row" style="justify-content:center;margin-top:12px;">
+          <button class="btn btn-next" onclick="markDone(2); navigate(3)">Next: Vocabulary ➜</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 3: VOCABULARY ─── -->
+  <section class="section" id="sec3">
+    <div class="page-header" style="background:linear-gradient(135deg,#3D8FE8,#6ECFC4 80%);">
+      <div class="page-tag">Activity 4 · Vocabulary</div>
+      <h2>🔵 Find the Blue Words!</h2>
+      <span class="objective">🎯 Match each definition to the correct word</span>
+    </div>
+    <div class="progress-strip"><div class="progress-fill" style="width:57%"></div></div>
+
+    <div class="card">
+      <div class="card-title"><span class="num">4</span>Match the definition to the word</div>
+      <p style="font-size:14px;margin-bottom:16px;color:#555;">
+        <strong>Step 1:</strong> Tap a <span style="color:var(--blue);font-weight:800;">blue definition</span>.<br>
+        <strong>Step 2:</strong> Tap the <span style="color:var(--orange);font-weight:800;">orange word</span> that matches.
+      </p>
+
+      <div class="vocab-word-grid" id="vocab-words">
+        <div class="vocab-word" data-word="sample"    onclick="selectWord(this)">sample</div>
+        <div class="vocab-word" data-word="explore"   onclick="selectWord(this)">explore</div>
+        <div class="vocab-word" data-word="rescue"    onclick="selectWord(this)">rescue</div>
+        <div class="vocab-word" data-word="factory"   onclick="selectWord(this)">factory</div>
+        <div class="vocab-word" data-word="operation" onclick="selectWord(this)">operation</div>
+        <div class="vocab-word" data-word="tools"     onclick="selectWord(this)">tools</div>
+        <div class="vocab-word" data-word="search"    onclick="selectWord(this)">search</div>
+      </div>
+
+      <div style="height:14px;"></div>
+
+      <div class="vocab-grid" id="vocab-defs">
+        <div class="vocab-def" data-def="to look for someone or something" data-answer="search" onclick="selectDef(this)">to look for someone or something</div>
+        <div class="vocab-def" data-def="trying to fix a person's body" data-answer="operation" onclick="selectDef(this)">trying to fix a person's body</div>
+        <div class="vocab-def" data-def="things we use to fix things" data-answer="tools" onclick="selectDef(this)">things we use to fix or make things</div>
+        <div class="vocab-def" data-def="places where we make things like cars" data-answer="factory" onclick="selectDef(this)">places where we make things like cars or machines</div>
+        <div class="vocab-def" data-def="to save people in danger" data-answer="rescue" onclick="selectDef(this)">to save people in danger</div>
+        <div class="vocab-def" data-def="small quantities of things to study" data-answer="sample" onclick="selectDef(this)">small quantities of things to study</div>
+        <div class="vocab-def" data-def="to visit and find your way in a new place" data-answer="explore" onclick="selectDef(this)">to visit and find your way in a new place</div>
+      </div>
+
+      <div id="vocab-score" style="margin-top:14px;font-weight:700;font-size:15px;color:var(--mint-dark);"></div>
+
+      <div class="btn-row">
+        <button class="btn btn-reset" onclick="resetVocab()">↩ Reset</button>
+      </div>
+
+      <div class="complete-banner" id="vocab-complete">
+        <h3>🌟 All words matched!</h3>
+        <p>You know the key vocabulary for this lesson.</p>
+        <div class="btn-row" style="justify-content:center;margin-top:12px;">
+          <button class="btn btn-next" onclick="markDone(3); navigate(4)">Next: Grammar ➜</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 4: GRAMMAR ─── -->
+  <section class="section" id="sec4">
+    <div class="page-header" style="background:linear-gradient(135deg,#F9C74F,#F4843D);">
+      <div class="page-tag">Activity 5 · Grammar – Direct Objects</div>
+      <h2>✏️ Complete the Sentences</h2>
+      <span class="objective">🎯 Choose the correct object to complete each sentence</span>
+    </div>
+    <div class="progress-strip"><div class="progress-fill" style="width:71%"></div></div>
+
+    <div class="grammar-box">
+      <h3>📚 Language Focus: Direct Objects</h3>
+      <p>A <strong>direct object</strong> is the word that receives the action of the verb.</p>
+      <p style="margin-top:8px;">It answers the question <strong>"Who?"</strong> or <strong>"What?"</strong></p>
+      <p style="margin-top:10px;background:#fff;border-radius:8px;padding:10px 14px;">
+        Robots take <span class="highlight-obj">photos</span>. ← What do they take? <em>photos</em>
+      </p>
+      <p style="margin-top:8px;background:#fff;border-radius:8px;padding:10px 14px;">
+        Robots rescue <span class="highlight-obj">people in danger</span>. ← Who do they rescue? <em>people in danger</em>
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num">5</span>Tap a word, then tap the blank to fill it</div>
+
+      <div class="object-bank" id="obj-bank">
+        <div class="obj-chip" data-obj="planets"        onclick="selectObj(this)">planets</div>
+        <div class="obj-chip" data-obj="tiny tools"     onclick="selectObj(this)">tiny tools</div>
+        <div class="obj-chip" data-obj="people in danger" onclick="selectObj(this)">people in danger</div>
+        <div class="obj-chip" data-obj="operations"     onclick="selectObj(this)">operations</div>
+        <div class="obj-chip" data-obj="photos"         onclick="selectObj(this)">photos</div>
+      </div>
+
+      <div id="sentences-area"></div>
+
+      <div class="btn-row">
+        <button class="btn btn-check" onclick="checkSentences()">✅ Check Answers</button>
+        <button class="btn btn-reset" onclick="resetSentences()">↩ Reset</button>
+      </div>
+
+      <div class="complete-banner" id="grammar-complete">
+        <h3>✨ Excellent! All sentences correct!</h3>
+        <p>You can use direct objects correctly.</p>
+        <div class="btn-row" style="justify-content:center;margin-top:12px;">
+          <button class="btn btn-next" onclick="markDone(4); navigate(5)">Next: Can / Can't ➜</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 5: CAN / CAN'T ─── -->
+  <section class="section" id="sec5">
+    <div class="page-header" style="background:linear-gradient(135deg,#E85D8A,#3AADA0);">
+      <div class="page-tag">Activity 3 · Speaking & Thinking</div>
+      <h2>🤔 Robots vs Humans</h2>
+      <span class="objective">🎯 Discuss what robots can and can't do</span>
+    </div>
+    <div class="progress-strip"><div class="progress-fill" style="width:85%"></div></div>
+
+    <div class="card">
+      <div class="card-title"><span class="num">3</span>What things can robots do that humans can't?</div>
+      <p style="font-size:14px;margin-bottom:14px;color:#555;">
+        Tap ✔ if a robot <strong>can</strong> do this. Tap again to change your answer. Discuss with a partner!
+      </p>
+
+      <div class="info-box">
+        <strong>Sentence starters:</strong> "Some robots… / Other robots… / …but humans cannot…"
+      </div>
+
+      <table class="ability-table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>🤖 Robots CAN</th>
+            <th>🧑 Humans CAN</th>
+          </tr>
+        </thead>
+        <tbody id="ability-tbody"></tbody>
+      </table>
+
+      <div class="btn-row">
+        <button class="btn btn-next" onclick="markDone(5); navigate(6)">Next: Future robots ➜</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 6: FUTURE TALK ─── -->
+  <section class="section" id="sec6">
+    <div class="page-header" style="background:linear-gradient(135deg,#6ECFC4,#3D8FE8);">
+      <div class="page-tag">Activity 6 · Speaking</div>
+      <h2>🔮 Robots in the Future!</h2>
+      <span class="objective">🎯 What do you think robots will be able to do?</span>
+    </div>
+    <div class="progress-strip"><div class="progress-fill" style="width:100%"></div></div>
+
+    <div class="card">
+      <div class="card-title"><span class="num">6</span><span class="talk-label">Talk</span> about robot jobs in the future</div>
+
+      <div class="bubble-row">
+        <div class="speech-bubble">
+          I think that<br>robots will…
+        </div>
+        <div class="speech-bubble pink-bubble">
+          I <strong>agree / disagree</strong>,<br>I think that<br>robots will…
+        </div>
+      </div>
+
+      <p style="font-size:14px;margin:20px 0 10px;font-weight:700;color:var(--charcoal);">
+        💡 Type your prediction, then tap <strong>Add</strong>!
+      </p>
+
+      <div class="prediction-input">
+        <select id="pred-starter">
+          <option>I think that robots will</option>
+          <option>I agree, robots will</option>
+          <option>I disagree, I think robots will</option>
+          <option>In the future, robots will</option>
+        </select>
+        <input type="text" id="pred-text" placeholder="…fly through space!" maxlength="80">
+        <button class="add-btn" onclick="addPrediction()">Add ➕</button>
+      </div>
+
+      <div class="prediction-cards" id="pred-cards"></div>
+
+      <div id="pred-empty" style="text-align:center;padding:24px;color:#aaa;font-size:14px;">
+        No predictions yet — be the first! 🚀
+      </div>
+
+      <div style="margin-top:20px;">
+        <p style="font-size:14px;font-weight:700;margin-bottom:10px;color:var(--charcoal);">🌟 Use these ideas to help you:</p>
+        <ul class="starter-list">
+          <li>🏥 perform all operations alone</li>
+          <li>🚀 travel to other galaxies</li>
+          <li>🍳 cook every meal for us</li>
+          <li>🏫 teach in schools</li>
+          <li>🌊 clean the oceans</li>
+          <li>🌳 plant trees and care for forests</li>
+          <li>🦺 fight all fires</li>
+        </ul>
+      </div>
+
+      <div class="complete-banner show" id="lesson-complete" style="margin-top:20px;background:linear-gradient(135deg,var(--orange),var(--pink));">
+        <h3>🏆 Lesson Complete!</h3>
+        <p>Amazing work today! You can now describe and compare what robots can do. Well done! 🤖⭐</p>
+        <div class="btn-row" style="justify-content:center;margin-top:12px;">
+          <button class="btn" style="background:#fff;color:var(--orange);" onclick="navigate(0); resetAll()">↩ Start Again</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+'use strict';
+
+/* ── STATE ─────────────────────────────────────── */
+const lessonState = {
+  currentSection: 0,
+  visited: new Set([0]),
+  done: new Set(),
+  // matching
+  selectedChip: null,
+  dropData: [null, null, null, null],   // placed chip data per drop slot
+  // vocab
+  selectedDef: null,
+  selectedWordEl: null,
+  vocabMatched: 0,
+  // grammar
+  selectedObjEl: null,
+  sentenceAnswers: [null, null, null, null, null],
+  // predictions
+  predictions: []
+};
+
+const CORRECT_TITLES = [
+  "Robots can go where we can't survive",
+  "Robots can go where it's dangerous for us",
+  "Robots can do jobs that people find boring",
+  "Robots can help with delicate operations"
+];
+
+const SENTENCES = [
+  { stem: "Robots take", answer: "photos" },
+  { stem: "Robots explore", answer: "planets" },
+  { stem: "Robots rescue", answer: "people in danger" },
+  { stem: "Robots do", answer: "operations" },
+  { stem: "Robot arms hold", answer: "tiny tools" }
+];
+
+const WARMUP_ITEMS = [
+  { text: "Go to the moon 🌕", answer: true },
+  { text: "Eat lunch 🍱", answer: false },
+  { text: "Work in a factory 🏭", answer: true },
+  { text: "Feel happy or sad 😊", answer: false },
+  { text: "Rescue people in danger 🚨", answer: true },
+  { text: "Do operations in hospitals 🏥", answer: true },
+];
+
+const ABILITY_ROWS = [
+  { task: "Go to very dangerous places 🔥", robot: true,  human: false },
+  { task: "Feel pain 🩹",                  robot: false, human: true  },
+  { task: "Work 24 hours without rest ⏰", robot: true,  human: false },
+  { task: "Make decisions 🧠",             robot: false, human: true  },
+  { task: "Reach tiny places inside bodies 🔬", robot: true, human: false },
+  { task: "Make friends 🤝",               robot: false, human: true  },
+  { task: "Work in very hot places 🌋",    robot: true,  human: false },
+];
+
+/* ── TOAST ─────────────────────────────────────── */
+let toastTimer;
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'show' + (type ? ' '+type : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.className = ''; }, 2200);
+}
+
+/* ── NAVIGATE ──────────────────────────────────── */
+function navigate(idx) {
+  lessonState.currentSection = idx;
+  lessonState.visited.add(idx);
+  document.querySelectorAll('.section').forEach((s,i) => {
+    s.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.nav-btn').forEach((b,i) => {
+    b.classList.toggle('active', i === idx);
+  });
+  document.getElementById('main').scrollTo({ top: 0, behavior: 'smooth' });
+}
+window.navigate = navigate;
+
+/* ── MARK DONE ─────────────────────────────────── */
+function markDone(idx) {
+  lessonState.done.add(idx);
+  const dot = document.getElementById('dot'+idx);
+  if (dot) dot.classList.add('done');
+}
+window.markDone = markDone;
+
+/* ── SHAKE ELEMENT ─────────────────────────────── */
+function shake(el) {
+  el.classList.remove('shake');
+  void el.offsetWidth;
+  el.classList.add('shake');
+}
+
+/* ════════════════════════════════════════════════
+   SECTION 0: WARM UP
+════════════════════════════════════════════════ */
+function buildWarmup() {
+  const container = document.getElementById('warmup-options');
+  WARMUP_ITEMS.forEach((item,i) => {
+    const btn = document.createElement('button');
+    btn.style.cssText = `
+      padding:12px 18px; border-radius:12px; border:2.5px solid var(--metal-lt);
+      background:#fff; font-family:'Nunito',sans-serif; font-size:15px; font-weight:700;
+      cursor:pointer; text-align:left; transition:all .2s; display:flex; align-items:center; gap:10px;
+    `;
+    btn.innerHTML = `<span class="vote-icon">⬜</span> ${item.text}`;
+    btn.dataset.index = i;
+    btn.dataset.voted = '';
+    btn.onclick = function() {
+      const v = btn.dataset.voted;
+      if (v === 'yes') {
+        btn.dataset.voted = '';
+        btn.querySelector('.vote-icon').textContent = '⬜';
+        btn.style.background = '#fff';
+        btn.style.borderColor = 'var(--metal-lt)';
+      } else {
+        btn.dataset.voted = 'yes';
+        btn.querySelector('.vote-icon').textContent = '✅';
+        btn.style.background = 'var(--mint-pale)';
+        btn.style.borderColor = 'var(--mint-dark)';
+      }
+    };
+    container.appendChild(btn);
+  });
+}
+
+/* ════════════════════════════════════════════════
+   SECTION 2: MATCHING TITLES
+════════════════════════════════════════════════ */
+window.selectChip = function(el) {
+  if (el.classList.contains('used')) return;
+  document.querySelectorAll('.title-chip').forEach(c => c.style.outline = '');
+  lessonState.selectedChip = el;
+  el.style.outline = '3px solid #fff';
+  el.style.outlineOffset = '2px';
+  el.style.boxShadow = '0 0 0 5px rgba(0,0,0,.18)';
+  showToast('Now tap the paragraph slot!', '');
+};
+
+window.placeTitleHere = function(idx) {
+  const chip = lessonState.selectedChip;
+  if (!chip) { showToast('Tap a title first!',''); return; }
+
+  // if slot already occupied, return chip
+  if (lessonState.dropData[idx]) {
+    const prev = lessonState.dropData[idx];
+    const prevChip = document.querySelector(`[data-title="${prev}"]`);
+    if (prevChip) { prevChip.classList.remove('used'); prevChip.style.outline=''; prevChip.style.boxShadow=''; }
+  }
+
+  lessonState.dropData[idx] = chip.dataset.title;
+  chip.classList.add('used');
+  chip.style.outline = '';
+  chip.style.boxShadow = '';
+  lessonState.selectedChip = null;
+
+  const drop = document.getElementById('drop'+idx);
+  drop.classList.add('has-chip');
+  drop.classList.remove('correct-drop','wrong-drop');
+  drop.childNodes[0].textContent = chip.dataset.title + ' ';
+  drop.querySelector('.remove-btn').style.display = 'flex';
+};
+
+window.removeTitle = function(e, idx) {
+  e.stopPropagation();
+  const title = lessonState.dropData[idx];
+  lessonState.dropData[idx] = null;
+  const chip = document.querySelector(`[data-title="${title}"]`);
+  if (chip) { chip.classList.remove('used'); chip.style.opacity=''; }
+  const drop = document.getElementById('drop'+idx);
+  drop.classList.remove('has-chip','correct-drop','wrong-drop');
+  drop.childNodes[0].textContent = 'Tap to place title here… ';
+  drop.querySelector('.remove-btn').style.display = 'none';
+};
+
+window.checkMatching = function() {
+  let allCorrect = true;
+  for (let i=0;i<4;i++) {
+    const drop = document.getElementById('drop'+i);
+    if (!lessonState.dropData[i]) { allCorrect=false; shake(drop); continue; }
+    const ok = lessonState.dropData[i] === CORRECT_TITLES[i];
+    drop.classList.toggle('correct-drop', ok);
+    drop.classList.toggle('wrong-drop', !ok);
+    if (!ok) { allCorrect=false; shake(drop); }
+  }
+  if (allCorrect) {
+    showToast('🎉 Perfect! All titles matched!','success');
+    document.getElementById('match-complete').classList.add('show');
+  } else {
+    showToast('Some are wrong. Try again!','error');
+  }
+};
+
+window.resetMatching = function() {
+  for (let i=0;i<4;i++) {
+    lessonState.dropData[i]=null;
+    const drop = document.getElementById('drop'+i);
+    drop.classList.remove('has-chip','correct-drop','wrong-drop');
+    drop.childNodes[0].textContent='Tap to place title here… ';
+    drop.querySelector('.remove-btn').style.display='none';
+  }
+  document.querySelectorAll('.title-chip').forEach(c=>{
+    c.classList.remove('used'); c.style.outline=''; c.style.boxShadow='';
+  });
+  lessonState.selectedChip=null;
+  document.getElementById('match-complete').classList.remove('show');
+};
+
+/* ════════════════════════════════════════════════
+   SECTION 3: VOCABULARY
+════════════════════════════════════════════════ */
+window.selectDef = function(el) {
+  if (el.classList.contains('matched')) return;
+  document.querySelectorAll('.vocab-def').forEach(d=>d.classList.remove('selected'));
+  document.querySelectorAll('.vocab-word').forEach(w=>w.classList.remove('selected'));
+  el.classList.add('selected');
+  lessonState.selectedDef = el;
+  lessonState.selectedWordEl = null;
+  tryVocabMatch();
+};
+
+window.selectWord = function(el) {
+  if (el.classList.contains('matched')) return;
+  document.querySelectorAll('.vocab-word').forEach(w=>w.classList.remove('selected'));
+  el.classList.add('selected');
+  lessonState.selectedWordEl = el;
+  tryVocabMatch();
+};
+
+function tryVocabMatch() {
+  const def = lessonState.selectedDef;
+  const word = lessonState.selectedWordEl;
+  if (!def || !word) return;
+
+  const correct = def.dataset.answer === word.dataset.word;
+  if (correct) {
+    def.classList.add('matched');
+    word.classList.add('matched');
+    lessonState.vocabMatched++;
+    lessonState.selectedDef = null;
+    lessonState.selectedWordEl = null;
+    document.querySelectorAll('.vocab-def').forEach(d=>d.classList.remove('selected'));
+    document.querySelectorAll('.vocab-word').forEach(w=>w.classList.remove('selected'));
+    const score = lessonState.vocabMatched;
+    document.getElementById('vocab-score').textContent = `✅ ${score} / 7 matched`;
+    showToast(`✅ Correct! "${word.dataset.word}"`, 'success');
+    if (score === 7) {
+      document.getElementById('vocab-complete').classList.add('show');
+    }
+  } else {
+    shake(word);
+    word.classList.remove('selected');
+    lessonState.selectedWordEl = null;
+    showToast('Not quite! Try another word.','error');
+  }
+}
+
+window.resetVocab = function() {
+  document.querySelectorAll('.vocab-def').forEach(d=>d.classList.remove('matched','selected'));
+  document.querySelectorAll('.vocab-word').forEach(w=>w.classList.remove('matched','selected'));
+  lessonState.vocabMatched=0;
+  lessonState.selectedDef=null;
+  lessonState.selectedWordEl=null;
+  document.getElementById('vocab-score').textContent='';
+  document.getElementById('vocab-complete').classList.remove('show');
+};
+
+/* ════════════════════════════════════════════════
+   SECTION 4: GRAMMAR / SENTENCES
+════════════════════════════════════════════════ */
+function buildSentences() {
+  const area = document.getElementById('sentences-area');
+  area.innerHTML = '';
+  SENTENCES.forEach((s,i) => {
+    const row = document.createElement('div');
+    row.className = 'sentence-row';
+    row.id = 'srow'+i;
+    row.innerHTML = `
+      <span class="s-num">${i+1}</span>
+      <span class="s-text">${s.stem}</span>
+      <span class="s-blank" id="sblank${i}" data-index="${i}" onclick="fillBlank(${i})">${lessonState.sentenceAnswers[i] || 'tap to fill'}</span>
+      <span class="s-text">.</span>
+    `;
+    if (lessonState.sentenceAnswers[i]) {
+      row.querySelector('.s-blank').classList.add('filled');
+      row.querySelector('.s-blank').textContent = lessonState.sentenceAnswers[i];
+    }
+    area.appendChild(row);
+  });
+}
+
+window.selectObj = function(el) {
+  if (el.classList.contains('used')) return;
+  document.querySelectorAll('.obj-chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  lessonState.selectedObjEl = el;
+  showToast('Now tap the blank to fill it!','');
+};
+
+window.fillBlank = function(idx) {
+  const obj = lessonState.selectedObjEl;
+  if (!obj) { showToast('Tap a word first!',''); return; }
+  // return previous answer
+  if (lessonState.sentenceAnswers[idx]) {
+    const prev = lessonState.sentenceAnswers[idx];
+    document.querySelectorAll('.obj-chip').forEach(c=>{
+      if (c.dataset.obj === prev) { c.classList.remove('used'); }
+    });
+  }
+  lessonState.sentenceAnswers[idx] = obj.dataset.obj;
+  obj.classList.add('used');
+  obj.classList.remove('selected');
+  lessonState.selectedObjEl = null;
+  document.querySelectorAll('.obj-chip').forEach(c=>c.classList.remove('selected'));
+  const blank = document.getElementById('sblank'+idx);
+  blank.textContent = obj.dataset.obj;
+  blank.classList.add('filled');
+  blank.classList.remove('correct','wrong');
+  showToast('Added! Keep going.','');
+};
+
+window.checkSentences = function() {
+  let allOk = true;
+  SENTENCES.forEach((s,i) => {
+    const blank = document.getElementById('sblank'+i);
+    const ans = lessonState.sentenceAnswers[i];
+    if (!ans) { allOk=false; shake(blank); return; }
+    const ok = ans.toLowerCase() === s.answer.toLowerCase();
+    blank.classList.toggle('correct', ok);
+    blank.classList.toggle('wrong', !ok);
+    if (!ok) { allOk=false; shake(blank); }
+  });
+  if (allOk) {
+    showToast('✨ All sentences correct!','success');
+    document.getElementById('grammar-complete').classList.add('show');
+  } else {
+    showToast('Some are wrong. Try again!','error');
+  }
+};
+
+window.resetSentences = function() {
+  lessonState.sentenceAnswers = [null,null,null,null,null];
+  lessonState.selectedObjEl = null;
+  document.querySelectorAll('.obj-chip').forEach(c=>c.classList.remove('used','selected'));
+  document.getElementById('grammar-complete').classList.remove('show');
+  buildSentences();
+};
+
+/* ════════════════════════════════════════════════
+   SECTION 5: CAN / CAN'T TABLE
+════════════════════════════════════════════════ */
+function buildAbilityTable() {
+  const tbody = document.getElementById('ability-tbody');
+  ABILITY_ROWS.forEach((row,i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="text-align:left;font-size:13.5px;border-radius:10px 0 0 10px;border:2px solid var(--metal-lt);">${row.task}</td>
+      <td style="border:2px solid var(--mint-pale);">
+        <button class="check-btn" id="rbt${i}" onclick="toggleAbility(${i},'robot')">${row.robot?'✔':''}</button>
+      </td>
+      <td style="border:2px solid var(--pink-lt);">
+        <button class="check-btn" id="hum${i}" onclick="toggleAbility(${i},'human')">${row.human?'✔':''}</button>
+      </td>
+    `;
+    if (row.robot) tr.querySelector('#rbt'+i).classList.add('ticked');
+    if (row.human) tr.querySelector('#hum'+i).classList.add('ticked');
+    tbody.appendChild(tr);
+  });
+}
+
+window.toggleAbility = function(idx, type) {
+  const id = type==='robot' ? 'rbt'+idx : 'hum'+idx;
+  const btn = document.getElementById(id);
+  const ticked = btn.classList.contains('ticked');
+  btn.classList.toggle('ticked', !ticked);
+  btn.textContent = ticked ? '' : '✔';
+};
+
+/* ════════════════════════════════════════════════
+   SECTION 6: PREDICTIONS
+════════════════════════════════════════════════ */
+window.addPrediction = function() {
+  const starter = document.getElementById('pred-starter').value;
+  const text = document.getElementById('pred-text').value.trim();
+  if (!text) { showToast('Type something first!','error'); return; }
+  lessonState.predictions.push({ starter, text });
+  document.getElementById('pred-text').value = '';
+  renderPredictions();
+  showToast('Great prediction added! 🚀','success');
+};
+
+function renderPredictions() {
+  const container = document.getElementById('pred-cards');
+  const empty = document.getElementById('pred-empty');
+  container.innerHTML = '';
+  empty.style.display = lessonState.predictions.length ? 'none' : 'block';
+  const icons = ['🤖','🚀','🌟','💡','🔭','🌍','⚙️'];
+  lessonState.predictions.forEach((p,i) => {
+    const card = document.createElement('div');
+    card.className = 'pred-card';
+    card.innerHTML = `
+      <span class="pred-icon">${icons[i%icons.length]}</span>
+      <span class="pred-text"><em>${p.starter}</em> ${p.text}</span>
+      <button class="pred-del" onclick="deletePred(${i})">🗑</button>
+    `;
+    container.appendChild(card);
+  });
+}
+
+window.deletePred = function(i) {
+  lessonState.predictions.splice(i,1);
+  renderPredictions();
+};
+
+/* ── RESET ALL ─────────────────────────────────── */
+window.resetAll = function() {
+  lessonState.done.clear();
+  document.querySelectorAll('.dot').forEach(d=>d.classList.remove('done'));
+  resetMatching();
+  resetVocab();
+  resetSentences();
+  lessonState.predictions=[];
+  renderPredictions();
+};
+
+/* ════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  buildWarmup();
+  buildSentences();
+  buildAbilityTable();
+
+  // enter key for prediction input
+  document.getElementById('pred-text').addEventListener('keydown', e=>{
+    if(e.key==='Enter') addPrediction();
+  });
+
+  renderPredictions();
+  navigate(0);
+});
+
+})();
+</script>
+</body>
+</html>
